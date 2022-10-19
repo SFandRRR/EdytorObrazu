@@ -7,12 +7,215 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:id="@+id/textView"
+        android:layout_width="193dp"
+        android:layout_height="19dp"
+        android:text="Stanisław Frąk"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.958" />
+
+    <ImageView
+        android:id="@+id/MainImage"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.041"
+        app:srcCompat="@drawable/default_img" />
+
+    <Button
+        android:id="@+id/ButtonCamera"
+        android:layout_width="187dp"
+        android:layout_height="40dp"
+        android:text="Aparat"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MainImage"
+        app:layout_constraintVertical_bias="0.038" />
+
+    <ScrollView
+        android:layout_width="324dp"
+        android:layout_height="229dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.511"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ButtonCamera"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fadeScrollbars="false"
+            android:orientation="vertical"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/purple_500"
+                android:backgroundTint="@color/purple_500"
+                android:foregroundTint="@color/purple_200"
+                tools:layout_editor_absoluteX="1dp"
+                tools:layout_editor_absoluteY="316dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15px"
+                android:text="Obrót"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="30dp"
+                tools:layout_editor_absoluteY="318dp" />
+
+            <SeekBar
+                android:id="@+id/SeekBar_ObrotX"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:foregroundTint="@color/purple_500"
+                android:max="360"
+                android:min="0"
+                android:padding="25px"
+                tools:layout_editor_absoluteX="18dp"
+                tools:layout_editor_absoluteY="317dp" />
+
+            <SeekBar
+                android:id="@+id/SeekBar_ObrotY"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:foregroundTint="@color/purple_500"
+                android:max="360"
+                android:min="0"
+                android:padding="25px"
+                tools:layout_editor_absoluteX="18dp"
+                tools:layout_editor_absoluteY="317dp" />
+
+            <SeekBar
+                android:id="@+id/SeekBar_ObrotZ"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:foregroundTint="@color/purple_500"
+                android:max="360"
+                android:min="0"
+                android:padding="25px"
+                tools:layout_editor_absoluteX="18dp"
+                tools:layout_editor_absoluteY="317dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/purple_500"
+                android:backgroundTint="@color/purple_500"
+                android:foregroundTint="@color/purple_200"
+                tools:layout_editor_absoluteX="1dp"
+                tools:layout_editor_absoluteY="316dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15px"
+                android:text="Przeźroczystość"
+                android:textAlignment="center"
+                tools:layout_editor_absoluteX="30dp"
+                tools:layout_editor_absoluteY="318dp" />
+
+            <SeekBar
+                android:id="@+id/SeekBar_Alpha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:foregroundTint="@color/purple_500"
+                android:max="255"
+                android:min="0"
+                android:padding="25px"
+                android:progress="255"
+                tools:layout_editor_absoluteX="18dp"
+                tools:layout_editor_absoluteY="317dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/purple_500"
+                android:backgroundTint="@color/purple_500"
+                android:foregroundTint="@color/purple_200"
+                tools:layout_editor_absoluteX="1dp"
+                tools:layout_editor_absoluteY="316dp" />
+
+            <Switch
+                android:id="@+id/Switch_Red"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Czerwony" />
+
+            <SeekBar
+                android:id="@+id/SeekBar_Red"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:foregroundTint="@color/purple_500"
+                android:max="255"
+                android:min="0"
+                android:padding="25px"
+                android:visibility="invisible"
+                tools:layout_editor_absoluteX="18dp"
+                tools:layout_editor_absoluteY="317dp" />
+
+            <Switch
+                android:id="@+id/Switch_Green"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Czerwony" />
+
+            <SeekBar
+                android:id="@+id/SeekBar_Green"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:foregroundTint="@color/purple_500"
+                android:max="255"
+                android:min="0"
+                android:padding="25px"
+                android:visibility="invisible"
+                tools:layout_editor_absoluteX="18dp"
+                tools:layout_editor_absoluteY="317dp" />
+
+            <Switch
+                android:id="@+id/Switch_Blue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Czerwony" />
+
+            <SeekBar
+                android:id="@+id/SeekBar_Blue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:foregroundTint="@color/purple_500"
+                android:max="255"
+                android:min="0"
+                android:padding="25px"
+                android:visibility="invisible"
+                tools:layout_editor_absoluteX="18dp"
+                tools:layout_editor_absoluteY="317dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/purple_500"
+                android:backgroundTint="@color/purple_500"
+                android:foregroundTint="@color/purple_200"
+                tools:layout_editor_absoluteX="1dp"
+                tools:layout_editor_absoluteY="316dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

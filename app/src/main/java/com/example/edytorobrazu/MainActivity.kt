@@ -2,16 +2,14 @@ package com.example.edytorobrazu
 
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.*
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.provider.MediaStore
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.SeekBar
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,14 +24,66 @@ class MainActivity : AppCompatActivity() {
         val SliderZ: SeekBar =findViewById(R.id.SeekBar_ObrotZ)
         val SliderAlpha: SeekBar =findViewById(R.id.SeekBar_Alpha)
 
-        val bitmapDog = BitmapFactory.decodeResource(resources,R.drawable.pies)
-        val bitmapRed = BitmapFactory.decodeResource(resources,R.drawable.czerwony)
-        val bitmapGrn = BitmapFactory.decodeResource(resources,R.drawable.zielony)
-        val bitmapBlu = BitmapFactory.decodeResource(resources,R.drawable.niebieski)
+        val ToggleR: Switch =findViewById(R.id.Switch_Red)
+        val ToggleG: Switch =findViewById(R.id.Switch_Green)
+        val ToggleB: Switch =findViewById(R.id.Switch_Blue)
 
-        val bitmapFilterR = Bitmap.createBitmap(bitmapDog.width, bitmapDog.height, Bitmap.Config.ARGB_8888)
-        val bitmapFilterG = Bitmap.createBitmap(bitmapDog.width, bitmapDog.height, Bitmap.Config.ARGB_8888)
-        val bitmapFilterB = Bitmap.createBitmap(bitmapDog.width, bitmapDog.height, Bitmap.Config.ARGB_8888)
+        fun ColorImage(){
+
+        }
+        var bitmapImage = BitmapFactory.decodeResource(resources,R.drawable.default_img)
+
+        val bitmapRed = BitmapFactory.decodeResource(resources,R.drawable.red)
+        val bitmapGrn = BitmapFactory.decodeResource(resources,R.drawable.green)
+        val bitmapBlu = BitmapFactory.decodeResource(resources,R.drawable.blue)
+
+        var bitmapFilterR = Bitmap.createBitmap(Image_Mainone.width, Image_Mainone.height, Bitmap.Config.ARGB_8888)
+        var bitmapFilterG = Bitmap.createBitmap(Image_Mainone.width, Image_Mainone.height, Bitmap.Config.ARGB_8888)
+        var bitmapFilterB = Bitmap.createBitmap(Image_Mainone.width, Image_Mainone.height, Bitmap.Config.ARGB_8888)
+
+        var paint = Paint()
+        paint.alpha=100
+        var canvasRed = Canvas(bitmapFilterR)
+        var canvasGreen = Canvas(bitmapFilterG)
+        var canvasBlue = Canvas(bitmapFilterB)
+        canvasRed.drawARGB(0,0,0,0)
+        canvasBlue.drawARGB(0,0,0,0)
+        canvasGreen.drawARGB(0,0,0,0)
+
+        canvasRed.drawBitmap(bitmapRed,null,
+            RectF(0f,0f,bitmapImage.width.toFloat(),bitmapImage.height.toFloat()),paint)
+        canvasRed.drawBitmap(bitmapImage,0f,0f,paint)
+
+        canvasGreen.drawBitmap(bitmapGrn,null,
+            RectF(0f,0f,bitmapImage.width.toFloat(),bitmapImage.height.toFloat()),paint)
+        canvasGreen.drawBitmap(bitmapImage,0f,0f,paint)
+
+        canvasBlue.drawBitmap(bitmapBlu,null,
+            RectF(0f,0f,bitmapImage.width.toFloat(),bitmapImage.height.toFloat()),paint)
+        canvasBlue.drawBitmap(bitmapImage,0f,0f,paint)
+
+        ToggleR.setOnCheckedChangeListener(){ _, isChecked ->
+            if (isChecked) {
+                Image_Mainone.setImageBitmap(bitmapFilterR)
+            } else {
+                Image_Mainone.setImageBitmap(bitmapImage)
+            }
+        }
+        ToggleG.setOnCheckedChangeListener(){ _, isChecked ->
+            if (isChecked) {
+                Image_Mainone.setImageBitmap(bitmapFilterG)
+            } else {
+                Image_Mainone.setImageBitmap(bitmapImage)
+            }
+        }
+        ToggleB.setOnCheckedChangeListener(){ _, isChecked ->
+            if (isChecked) {
+                Image_Mainone.setImageBitmap(bitmapFilterB)
+            } else {
+                Image_Mainone.setImageBitmap(bitmapImage)
+            }
+        }
+
 
         SliderX.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
@@ -121,6 +171,7 @@ class MainActivity : AppCompatActivity() {
         {
             var ObrazKamery  = data?.getParcelableExtra<Bitmap>("data")
             findViewById<ImageView>(R.id.MainImage).setImageBitmap(ObrazKamery)
+            var bitmapImage = ObrazKamery
         }
     }
 }

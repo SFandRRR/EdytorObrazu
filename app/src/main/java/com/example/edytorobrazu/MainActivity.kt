@@ -9,6 +9,7 @@ import android.provider.MediaStore
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.graphics.drawable.toBitmap
 
 
 class MainActivity : AppCompatActivity() {
@@ -28,60 +29,62 @@ class MainActivity : AppCompatActivity() {
         val ToggleG: Switch =findViewById(R.id.Switch_Green)
         val ToggleB: Switch =findViewById(R.id.Switch_Blue)
 
-        fun ColorImage(){
-
-        }
-        var bitmapImage = BitmapFactory.decodeResource(resources,R.drawable.default_img)
-
         val bitmapRed = BitmapFactory.decodeResource(resources,R.drawable.red)
         val bitmapGrn = BitmapFactory.decodeResource(resources,R.drawable.green)
         val bitmapBlu = BitmapFactory.decodeResource(resources,R.drawable.blue)
 
-        var bitmapFilterR = Bitmap.createBitmap(Image_Mainone.width, Image_Mainone.height, Bitmap.Config.ARGB_8888)
-        var bitmapFilterG = Bitmap.createBitmap(Image_Mainone.width, Image_Mainone.height, Bitmap.Config.ARGB_8888)
-        var bitmapFilterB = Bitmap.createBitmap(Image_Mainone.width, Image_Mainone.height, Bitmap.Config.ARGB_8888)
+        fun ColorImage(){
+            var bitmapImage = Image_Mainone.drawable.toBitmap();
 
-        var paint = Paint()
-        paint.alpha=100
-        var canvasRed = Canvas(bitmapFilterR)
-        var canvasGreen = Canvas(bitmapFilterG)
-        var canvasBlue = Canvas(bitmapFilterB)
-        canvasRed.drawARGB(0,0,0,0)
-        canvasBlue.drawARGB(0,0,0,0)
-        canvasGreen.drawARGB(0,0,0,0)
+            var bitmapFilterR = Bitmap.createBitmap(Image_Mainone.width, Image_Mainone.height, Bitmap.Config.ARGB_8888)
+            var bitmapFilterG = Bitmap.createBitmap(Image_Mainone.width, Image_Mainone.height, Bitmap.Config.ARGB_8888)
+            var bitmapFilterB = Bitmap.createBitmap(Image_Mainone.width, Image_Mainone.height, Bitmap.Config.ARGB_8888)
 
-        canvasRed.drawBitmap(bitmapRed,null,
-            RectF(0f,0f,bitmapImage.width.toFloat(),bitmapImage.height.toFloat()),paint)
-        canvasRed.drawBitmap(bitmapImage,0f,0f,paint)
+            var paint = Paint()
+            paint.alpha=100
+            var canvasRed = Canvas(bitmapFilterR)
+            var canvasGreen = Canvas(bitmapFilterG)
+            var canvasBlue = Canvas(bitmapFilterB)
+            canvasRed.drawARGB(0,0,0,0)
+            canvasBlue.drawARGB(0,0,0,0)
+            canvasGreen.drawARGB(0,0,0,0)
 
-        canvasGreen.drawBitmap(bitmapGrn,null,
-            RectF(0f,0f,bitmapImage.width.toFloat(),bitmapImage.height.toFloat()),paint)
-        canvasGreen.drawBitmap(bitmapImage,0f,0f,paint)
+            canvasRed.drawBitmap(bitmapRed,null,
+                RectF(0f,0f,bitmapImage.width.toFloat(),bitmapImage.height.toFloat()),paint)
+            canvasRed.drawBitmap(bitmapImage,0f,0f,paint)
 
-        canvasBlue.drawBitmap(bitmapBlu,null,
-            RectF(0f,0f,bitmapImage.width.toFloat(),bitmapImage.height.toFloat()),paint)
-        canvasBlue.drawBitmap(bitmapImage,0f,0f,paint)
+            canvasGreen.drawBitmap(bitmapGrn,null,
+                RectF(0f,0f,bitmapImage.width.toFloat(),bitmapImage.height.toFloat()),paint)
+            canvasGreen.drawBitmap(bitmapImage,0f,0f,paint)
+
+            canvasBlue.drawBitmap(bitmapBlu,null,
+                RectF(0f,0f,bitmapImage.width.toFloat(),bitmapImage.height.toFloat()),paint)
+            canvasBlue.drawBitmap(bitmapImage,0f,0f,paint)
+
+
+            if (ToggleR.isChecked) {
+                Image_Mainone.setImageBitmap(bitmapFilterR)
+            }
+
+            if (ToggleG.isChecked) {
+                Image_Mainone.setImageBitmap(bitmapFilterG)
+            }
+
+            if (ToggleB.isChecked) {
+                Image_Mainone.setImageBitmap(bitmapFilterB)
+            }
+
+        }
+
 
         ToggleR.setOnCheckedChangeListener(){ _, isChecked ->
-            if (isChecked) {
-                Image_Mainone.setImageBitmap(bitmapFilterR)
-            } else {
-                Image_Mainone.setImageBitmap(bitmapImage)
-            }
+            ColorImage()
         }
         ToggleG.setOnCheckedChangeListener(){ _, isChecked ->
-            if (isChecked) {
-                Image_Mainone.setImageBitmap(bitmapFilterG)
-            } else {
-                Image_Mainone.setImageBitmap(bitmapImage)
-            }
+            ColorImage()
         }
         ToggleB.setOnCheckedChangeListener(){ _, isChecked ->
-            if (isChecked) {
-                Image_Mainone.setImageBitmap(bitmapFilterB)
-            } else {
-                Image_Mainone.setImageBitmap(bitmapImage)
-            }
+            ColorImage()
         }
 
 
@@ -171,7 +174,6 @@ class MainActivity : AppCompatActivity() {
         {
             var ObrazKamery  = data?.getParcelableExtra<Bitmap>("data")
             findViewById<ImageView>(R.id.MainImage).setImageBitmap(ObrazKamery)
-            var bitmapImage = ObrazKamery
         }
     }
 }

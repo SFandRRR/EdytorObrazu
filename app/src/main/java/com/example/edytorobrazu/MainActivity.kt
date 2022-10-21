@@ -2,26 +2,33 @@ package com.example.edytorobrazu
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.app.ActivityCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.drawable.toDrawable
+import androidx.core.graphics.drawable.toIcon
 
 
 class MainActivity : AppCompatActivity() {
 
-    var ImageImage = R.drawable.default_img.toDrawable().toBitmap()
-    val Image_Mainone: ImageView =findViewById(R.id.MainImage)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
+        val Image_Mainone: ImageView =findViewById(R.id.MainImage)
+        val Image_Backup: ImageView =findViewById(R.id.BackupImage)
 
         val ButtonCamera: Button =findViewById(R.id.ButtonCamera)
 
@@ -45,27 +52,24 @@ class MainActivity : AppCompatActivity() {
 
         fun ColorImage(){
 
-            ImageImage  = Image_Mainone.drawable.toBitmap();
-            var editImage = Image_Mainone.drawable.toBitmap();
+            var editImage = Image_Backup.drawable.toBitmap();
 
-            var bitmapFilterR = Bitmap.createBitmap(Image_Mainone.width, Image_Mainone.height, Bitmap.Config.ARGB_8888)
-            var bitmapFilterG = Bitmap.createBitmap(Image_Mainone.width, Image_Mainone.height, Bitmap.Config.ARGB_8888)
-            var bitmapFilterB = Bitmap.createBitmap(Image_Mainone.width, Image_Mainone.height, Bitmap.Config.ARGB_8888)
+            var WidthImg = editImage.width.toFloat()
+            var HeightImg = editImage.height.toFloat()
 
             var paint = Paint()
-
-            var canvasRed = Canvas(bitmapFilterR)
-            var canvasGreen = Canvas(bitmapFilterG)
-            var canvasBlue = Canvas(bitmapFilterB)
-            canvasRed.drawARGB(0,0,0,0)
-            canvasBlue.drawARGB(0,0,0,0)
-            canvasGreen.drawARGB(0,0,0,0)
+            var paint2 = Paint()
+            paint2.alpha=255
 
             if (ToggleR.isChecked) {
-                paint.alpha=SliderR.progress
+                var bitmapFilterR = Bitmap.createBitmap(Image_Mainone.width, Image_Mainone.height, Bitmap.Config.ARGB_8888)
+                var canvasRed = Canvas(bitmapFilterR)
+                canvasRed.drawARGB(0,0,0,0)
+
+                paint.alpha=(SliderR.progress-255)*-1
 
                 canvasRed.drawBitmap(bitmapRed,null,
-                    RectF(0f,0f,editImage.width.toFloat(),editImage.height.toFloat()),paint)
+                    RectF(0f,0f,WidthImg,HeightImg),paint2)
                 canvasRed.drawBitmap(editImage,0f,0f,paint)
 
                 editImage=bitmapFilterR
@@ -73,10 +77,14 @@ class MainActivity : AppCompatActivity() {
             }
 
             if (ToggleG.isChecked) {
-                paint.alpha=SliderG.progress
+                var bitmapFilterG = Bitmap.createBitmap(Image_Mainone.width, Image_Mainone.height, Bitmap.Config.ARGB_8888)
+                var canvasGreen = Canvas(bitmapFilterG)
+                canvasGreen.drawARGB(0,0,0,0)
+
+                paint.alpha=(SliderG.progress-255)*-1
 
                 canvasGreen.drawBitmap(bitmapGrn,null,
-                    RectF(0f,0f,editImage.width.toFloat(),editImage.height.toFloat()),paint)
+                    RectF(0f,0f,WidthImg,HeightImg),paint2)
                 canvasGreen.drawBitmap(editImage,0f,0f,paint)
 
                 editImage=bitmapFilterG
@@ -84,11 +92,14 @@ class MainActivity : AppCompatActivity() {
             }
 
             if (ToggleB.isChecked) {
+                var bitmapFilterB = Bitmap.createBitmap(Image_Mainone.width, Image_Mainone.height, Bitmap.Config.ARGB_8888)
+                var canvasBlue = Canvas(bitmapFilterB)
+                canvasBlue.drawARGB(0,0,0,0)
 
-                paint.alpha=SliderB.progress
+                paint.alpha=(SliderB.progress-255)*-1
 
                 canvasBlue.drawBitmap(bitmapBlu,null,
-                    RectF(0f,0f,editImage.width.toFloat(),editImage.height.toFloat()),paint)
+                    RectF(0f,0f,WidthImg,HeightImg),paint2)
                 canvasBlue.drawBitmap(editImage,0f,0f,paint)
 
                 editImage=bitmapFilterB
@@ -100,29 +111,32 @@ class MainActivity : AppCompatActivity() {
 
         ToggleR.setOnCheckedChangeListener(){ _, isChecked ->
             if (isChecked) {
-                ColorImage()
+
                 SliderR.visibility = View.VISIBLE
+                ColorImage()
             }else {
-                Image_Mainone.setImageBitmap(ImageImage)
                 SliderR.visibility = View.GONE
+                ColorImage()
             }
         }
         ToggleG.setOnCheckedChangeListener(){ _, isChecked ->
             if (isChecked) {
-                ColorImage()
+
                 SliderG.visibility = View.VISIBLE
+                ColorImage()
             }else {
-                Image_Mainone.setImageBitmap(ImageImage)
                 SliderG.visibility = View.GONE
+                ColorImage()
             }
         }
         ToggleB.setOnCheckedChangeListener(){ _, isChecked ->
             if (isChecked) {
-                ColorImage()
+
                 SliderB.visibility = View.VISIBLE
+                ColorImage()
             }else {
-                Image_Mainone.setImageBitmap(ImageImage)
                 SliderB.visibility = View.GONE
+                ColorImage()
             }
         }
 
@@ -134,11 +148,9 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
-                // you can probably leave this empty
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-                // you can probably leave this empty
             }
         })
 
@@ -149,11 +161,9 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
-                // you can probably leave this empty
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-                // you can probably leave this empty
             }
         })
 
@@ -164,11 +174,9 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
-                // you can probably leave this empty
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-                // you can probably leave this empty
             }
         })
 
@@ -178,11 +186,40 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
-                // you can probably leave this empty
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-                // you can probably leave this empty
+            }
+        })
+
+        SliderR.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                ColorImage()
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+            }
+        })
+        SliderG.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                ColorImage()
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+            }
+        })
+        SliderB.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                ColorImage()
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
             }
         })
 
@@ -213,6 +250,7 @@ class MainActivity : AppCompatActivity() {
         {
             var ObrazKamery  = data?.getParcelableExtra<Bitmap>("data")
             findViewById<ImageView>(R.id.MainImage).setImageBitmap(ObrazKamery)
+            findViewById<ImageView>(R.id.BackupImage).setImageBitmap(ObrazKamery)
         }
     }
 }

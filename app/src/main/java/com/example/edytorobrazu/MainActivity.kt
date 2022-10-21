@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity() {
 
         fun ColorImage(){
 
+            Image_Mainone.setImageBitmap(Image_Backup.drawable.toBitmap())
             var editImage = Image_Backup.drawable.toBitmap();
 
             var WidthImg = editImage.width.toFloat()
@@ -107,11 +108,18 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-
+        ToggleR.setOnClickListener(){
+            ColorImage()
+        }
+        ToggleG.setOnClickListener(){
+            ColorImage()
+        }
+        ToggleB.setOnClickListener(){
+            ColorImage()
+        }
 
         ToggleR.setOnCheckedChangeListener(){ _, isChecked ->
             if (isChecked) {
-
                 SliderR.visibility = View.VISIBLE
                 ColorImage()
             }else {

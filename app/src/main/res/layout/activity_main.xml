@@ -43,9 +43,10 @@
         app:layout_constraintVertical_bias="0.038" />
 
     <ScrollView
-        android:layout_width="324dp"
+        android:layout_width="354dp"
         android:layout_height="229dp"
         android:layout_marginTop="20dp"
+        android:fadeScrollbars="false"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.511"
@@ -58,8 +59,8 @@
             android:layout_height="wrap_content"
             android:fadeScrollbars="false"
             android:orientation="vertical"
-            android:paddingLeft="6dp"
-            android:paddingRight="6dp">
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
             <View
                 android:layout_width="match_parent"
@@ -165,7 +166,7 @@
                 android:max="255"
                 android:min="0"
                 android:padding="25px"
-                android:visibility="invisible"
+                android:visibility="gone"
                 tools:layout_editor_absoluteX="18dp"
                 tools:layout_editor_absoluteY="317dp" />
 
@@ -173,7 +174,7 @@
                 android:id="@+id/Switch_Green"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Czerwony" />
+                android:text="Zielony" />
 
             <SeekBar
                 android:id="@+id/SeekBar_Green"
@@ -183,7 +184,7 @@
                 android:max="255"
                 android:min="0"
                 android:padding="25px"
-                android:visibility="invisible"
+                android:visibility="gone"
                 tools:layout_editor_absoluteX="18dp"
                 tools:layout_editor_absoluteY="317dp" />
 
@@ -191,7 +192,7 @@
                 android:id="@+id/Switch_Blue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Czerwony" />
+                android:text="Niebieski" />
 
             <SeekBar
                 android:id="@+id/SeekBar_Blue"
@@ -201,7 +202,7 @@
                 android:max="255"
                 android:min="0"
                 android:padding="25px"
-                android:visibility="invisible"
+                android:visibility="gone"
                 tools:layout_editor_absoluteX="18dp"
                 tools:layout_editor_absoluteY="317dp" />
 

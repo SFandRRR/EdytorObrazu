@@ -6,24 +6,32 @@ import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.graphics.drawable.toBitmap
+import androidx.core.graphics.drawable.toDrawable
 
 
 class MainActivity : AppCompatActivity() {
+
+    var ImageImage = R.drawable.default_img.toDrawable().toBitmap()
+    val Image_Mainone: ImageView =findViewById(R.id.MainImage)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val ButtonCamera: Button =findViewById(R.id.ButtonCamera)
-        val Image_Mainone: ImageView =findViewById(R.id.MainImage)
 
         val SliderX: SeekBar =findViewById(R.id.SeekBar_ObrotX)
         val SliderY: SeekBar =findViewById(R.id.SeekBar_ObrotY)
         val SliderZ: SeekBar =findViewById(R.id.SeekBar_ObrotZ)
         val SliderAlpha: SeekBar =findViewById(R.id.SeekBar_Alpha)
+        val SliderR: SeekBar =findViewById(R.id.SeekBar_Red)
+        val SliderG: SeekBar =findViewById(R.id.SeekBar_Green)
+        val SliderB: SeekBar =findViewById(R.id.SeekBar_Blue)
 
         val ToggleR: Switch =findViewById(R.id.Switch_Red)
         val ToggleG: Switch =findViewById(R.id.Switch_Green)
@@ -33,15 +41,19 @@ class MainActivity : AppCompatActivity() {
         val bitmapGrn = BitmapFactory.decodeResource(resources,R.drawable.green)
         val bitmapBlu = BitmapFactory.decodeResource(resources,R.drawable.blue)
 
+
+
         fun ColorImage(){
-            var bitmapImage = Image_Mainone.drawable.toBitmap();
+
+            ImageImage  = Image_Mainone.drawable.toBitmap();
+            var editImage = Image_Mainone.drawable.toBitmap();
 
             var bitmapFilterR = Bitmap.createBitmap(Image_Mainone.width, Image_Mainone.height, Bitmap.Config.ARGB_8888)
             var bitmapFilterG = Bitmap.createBitmap(Image_Mainone.width, Image_Mainone.height, Bitmap.Config.ARGB_8888)
             var bitmapFilterB = Bitmap.createBitmap(Image_Mainone.width, Image_Mainone.height, Bitmap.Config.ARGB_8888)
 
             var paint = Paint()
-            paint.alpha=100
+
             var canvasRed = Canvas(bitmapFilterR)
             var canvasGreen = Canvas(bitmapFilterG)
             var canvasBlue = Canvas(bitmapFilterB)
@@ -49,42 +61,69 @@ class MainActivity : AppCompatActivity() {
             canvasBlue.drawARGB(0,0,0,0)
             canvasGreen.drawARGB(0,0,0,0)
 
-            canvasRed.drawBitmap(bitmapRed,null,
-                RectF(0f,0f,bitmapImage.width.toFloat(),bitmapImage.height.toFloat()),paint)
-            canvasRed.drawBitmap(bitmapImage,0f,0f,paint)
-
-            canvasGreen.drawBitmap(bitmapGrn,null,
-                RectF(0f,0f,bitmapImage.width.toFloat(),bitmapImage.height.toFloat()),paint)
-            canvasGreen.drawBitmap(bitmapImage,0f,0f,paint)
-
-            canvasBlue.drawBitmap(bitmapBlu,null,
-                RectF(0f,0f,bitmapImage.width.toFloat(),bitmapImage.height.toFloat()),paint)
-            canvasBlue.drawBitmap(bitmapImage,0f,0f,paint)
-
-
             if (ToggleR.isChecked) {
-                Image_Mainone.setImageBitmap(bitmapFilterR)
+                paint.alpha=SliderR.progress
+
+                canvasRed.drawBitmap(bitmapRed,null,
+                    RectF(0f,0f,editImage.width.toFloat(),editImage.height.toFloat()),paint)
+                canvasRed.drawBitmap(editImage,0f,0f,paint)
+
+                editImage=bitmapFilterR
+                Image_Mainone.setImageBitmap(editImage)
             }
 
             if (ToggleG.isChecked) {
-                Image_Mainone.setImageBitmap(bitmapFilterG)
+                paint.alpha=SliderG.progress
+
+                canvasGreen.drawBitmap(bitmapGrn,null,
+                    RectF(0f,0f,editImage.width.toFloat(),editImage.height.toFloat()),paint)
+                canvasGreen.drawBitmap(editImage,0f,0f,paint)
+
+                editImage=bitmapFilterG
+                Image_Mainone.setImageBitmap(editImage)
             }
 
             if (ToggleB.isChecked) {
-                Image_Mainone.setImageBitmap(bitmapFilterB)
+
+                paint.alpha=SliderB.progress
+
+                canvasBlue.drawBitmap(bitmapBlu,null,
+                    RectF(0f,0f,editImage.width.toFloat(),editImage.height.toFloat()),paint)
+                canvasBlue.drawBitmap(editImage,0f,0f,paint)
+
+                editImage=bitmapFilterB
+                Image_Mainone.setImageBitmap(editImage)
             }
 
         }
 
 
         ToggleR.setOnCheckedChangeListener(){ _, isChecked ->
-            ColorImage()
+            if (isChecked) {
+                ColorImage()
+                SliderR.visibility = View.VISIBLE
+            }else {
+                Image_Mainone.setImageBitmap(ImageImage)
+                SliderR.visibility = View.GONE
+            }
         }
         ToggleG.setOnCheckedChangeListener(){ _, isChecked ->
-            ColorImage()
+            if (isChecked) {
+                ColorImage()
+                SliderG.visibility = View.VISIBLE
+            }else {
+                Image_Mainone.setImageBitmap(ImageImage)
+                SliderG.visibility = View.GONE
+            }
         }
         ToggleB.setOnCheckedChangeListener(){ _, isChecked ->
-            ColorImage()
+            if (isChecked) {
+                ColorImage()
+                SliderB.visibility = View.VISIBLE
+            }else {
+                Image_Mainone.setImageBitmap(ImageImage)
+                SliderB.visibility = View.GONE
+            }
         }
 
 
